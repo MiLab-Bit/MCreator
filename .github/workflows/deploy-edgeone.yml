@@ -1,0 +1,66 @@
+name: Deploy to EdgeOne (Tencent Cloud)
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Build CSS
+        run: |
+          if [ -f "styles/input.css" ]; then
+            npx tailwindcss --input styles/input.css --output styles/tailwind-built.css --content './**/*.html' --minify
+          fi
+
+      - name: Configure AWS CLI for COS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.COS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.COS_SECRET_ACCESS_KEY }}
+          aws-region: ap-shanghai
+
+      - name: Sync static assets to COS
+        run: |
+          # 同步所有文件（长期缓存）
+          aws s3 sync . s3://${{ secrets.EDGEONE_BUCKET }} \
+            --delete \
+            --exclude ".git/*" \
+            --exclude ".github/*" \
+            --exclude "node_modules/*" \
+            --exclude ".env*" \
+            --exclude "*.html" \
+            --cache-control "public, max-age=31536000, immutable"
+
+      - name: Sync HTML files with short cache
+        run: |
+          # HTML 文件单独同步（短缓存）
+          aws s3 sync . s3://${{ secrets.EDGEONE_BUCKET }} \
+            --exclude "*" \
+            --include "*.html" \
+            --cache-control "public, max-age=3600"
+
+      - name: Purge EdgeOne Cache
+        run: |
+          curl -X POST "https://api.edgeone.ai/v1/zones/${{ secrets.EDGEONE_ZONE_ID }}/cache/purge" \
+            -H "Authorization: Bearer ${{ secrets.EDGEONE_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"files": ["https://${{ secrets.SITE_DOMAIN }}/*"]}'
+
+      - name: Notify on success
+        if: success()
+        run: |
+          echo "✅ Deployment successful"
+          echo "Site: https://${{ secrets.SITE_DOMAIN }}"

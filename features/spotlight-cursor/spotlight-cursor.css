@@ -1,0 +1,132 @@
+/* ============================================
+   鼠标聚光灯效果 - 配套 CSS
+   ============================================ */
+
+/* 基础样式（由 JS 动态创建，此处仅作备用） */
+.spotlight-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  will-change: transform, opacity;
+  mix-blend-mode: screen;
+}
+
+.spotlight-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  will-change: transform, opacity;
+}
+
+/* ============================================
+   预设主题
+   ============================================ */
+
+/* 白色聚光灯（默认，适合深色背景） */
+.spotlight-theme-light {
+  --spotlight-color: rgba(255, 255, 255, 0.08);
+  --spotlight-ring-color: rgba(255, 255, 255, 0.15);
+}
+
+/* 蓝色聚光灯（科技感） */
+.spotlight-theme-blue {
+  --spotlight-color: rgba(0, 122, 255, 0.15);
+  --spotlight-ring-color: rgba(0, 122, 255, 0.3);
+}
+
+/* 紫色聚光灯（神秘感） */
+.spotlight-theme-purple {
+  --spotlight-color: rgba(147, 51, 234, 0.15);
+  --spotlight-ring-color: rgba(147, 51, 234, 0.3);
+}
+
+/* 金色聚光灯（奢华感） */
+.spotlight-theme-gold {
+  --spotlight-color: rgba(255, 215, 0, 0.1);
+  --spotlight-ring-color: rgba(255, 215, 0, 0.25);
+}
+
+/* ============================================
+   尺寸变体
+   ============================================ */
+
+/* 小型聚光灯（150px） */
+.spotlight-size-sm {
+  --spotlight-radius: 150px;
+}
+
+/* 中型聚光灯（200px，默认） */
+.spotlight-size-md {
+  --spotlight-radius: 200px;
+}
+
+/* 大型聚光灯（300px） */
+.spotlight-size-lg {
+  --spotlight-radius: 300px;
+}
+
+/* 超大聚光灯（400px） */
+.spotlight-size-xl {
+  --spotlight-radius: 400px;
+}
+
+/* ============================================
+   交互增强
+   ============================================ */
+
+/* 鼠标悬停在可交互元素时缩小 */
+.spotlight-interactive:hover .spotlight-cursor,
+.spotlight-interactive:hover .spotlight-ring {
+  transform: translate(-50%, -50%) scale(0.8);
+  transition: transform 0.3s ease;
+}
+
+/* 鼠标按下时放大 */
+.spotlight-interactive:active .spotlight-cursor,
+.spotlight-interactive:active .spotlight-ring {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+/* ============================================
+   性能优化
+   ============================================ */
+
+/* 减少动画（用户偏好） */
+@media (prefers-reduced-motion: reduce) {
+  .spotlight-cursor,
+  .spotlight-ring {
+    transition: none !important;
+  }
+}
+
+/* 移动设备隐藏 */
+@media (max-width: 768px) {
+  .spotlight-cursor,
+  .spotlight-ring {
+    display: none !important;
+  }
+}
+
+/* ============================================
+   使用示例
+   ============================================
+   
+   HTML:
+   <body data-spotlight class="spotlight-theme-blue spotlight-size-lg">
+   
+   JS:
+   initSpotlightCursor({
+     radius: 250,
+     color: 'rgba(0, 122, 255, 0.15)',
+     showRing: true
+   });
+   
+   ============================================ */

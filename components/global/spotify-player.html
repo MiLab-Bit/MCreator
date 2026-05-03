@@ -1,0 +1,113 @@
+<!-- ============================================
+     Spotify 播放器组件（海外专用）
+     ⚠️ 国内访问不稳定，需科学上网
+     ============================================ -->
+
+<!-- 预连接优化 -->
+<link rel="preconnect" href="https://open.spotify.com">
+<link rel="dns-prefetch" href="https://open.spotify.com">
+<link rel="preconnect" href="https://i.scdn.co">
+
+<!-- 单曲播放器（标准版） -->
+<iframe 
+  src="https://open.spotify.com/embed/track/6rqhFgbbKwnb9MLmUQDhG6?utm_source=generator"
+  width="100%"
+  height="80"
+  style="border: none; border-radius: 12px;"
+  frameborder="0"
+  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+  loading="lazy"
+  sandbox="allow-scripts allow-same-origin allow-popups"
+  title="Spotify 单曲播放器"
+></iframe>
+
+<!-- 单曲播放器（大尺寸） -->
+<iframe 
+  src="https://open.spotify.com/embed/track/6rqhFgbbKwnb9MLmUQDhG6?utm_source=generator&theme=0"
+  width="100%"
+  height="152"
+  style="border: none; border-radius: 12px;"
+  frameborder="0"
+  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+  loading="lazy"
+  sandbox="allow-scripts allow-same-origin allow-popups"
+  title="Spotify 单曲播放器"
+></iframe>
+
+<!-- 专辑播放器 -->
+<iframe 
+  src="https://open.spotify.com/embed/album/1DFixLWmPp7M1gaT5zJbKJ?utm_source=generator"
+  width="100%"
+  height="352"
+  style="border: none; border-radius: 12px;"
+  frameborder="0"
+  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+  loading="lazy"
+  sandbox="allow-scripts allow-same-origin allow-popups"
+  title="Spotify 专辑播放器"
+></iframe>
+
+<!-- 播放列表播放器 -->
+<iframe 
+  src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator"
+  width="100%"
+  height="352"
+  style="border: none; border-radius: 12px;"
+  frameborder="0"
+  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+  loading="lazy"
+  sandbox="allow-scripts allow-same-origin allow-popups"
+  title="Spotify 播放列表"
+></iframe>
+
+<!-- 艺术家播放器 -->
+<iframe 
+  src="https://open.spotify.com/embed/artist/1vCWHaCp1W6iV0Pj5nN4xG?utm_source=generator"
+  width="100%"
+  height="352"
+  style="border: none; border-radius: 12px;"
+  frameborder="0"
+  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+  loading="lazy"
+  sandbox="allow-scripts allow-same-origin allow-popups"
+  title="Spotify 艺术家"
+></iframe>
+
+<!-- ============================================
+     参数说明
+     ============================================
+     URL 格式：
+       单曲：   embed/track/{TRACK_ID}
+       专辑：   embed/album/{ALBUM_ID}
+       播放列表：embed/playlist/{PLAYLIST_ID}
+       艺术家： embed/artist/{ARTIST_ID}
+     
+     可选参数（URL 后加 ? 或 &）：
+       theme=0  深色主题（默认）
+       theme=1  浅色主题
+       
+       view=compact  紧凑视图
+     
+     获取 ID 方法：
+       1. 打开 Spotify 网页版或客户端
+       2. 分享 → 复制链接
+       3. 链接中最后一个 / 后的字符串即为 ID
+       如：https://open.spotify.com/track/6rqhFgbbKwnb9MLmUQDhG6
+       ID 为：6rqhFgbbKwnb9MLmUQDhG6
+     
+     高度建议：
+       单曲（小）：80px
+       单曲（大）：152px
+       专辑/播放列表/艺术家：352px
+     ============================================ -->
+
+<!-- ============================================
+     国内替代方案
+     ============================================
+     国内网站推荐使用网易云音乐播放器：
+       components/cn/netease-player.html
+     
+     Spotify 仅用于：
+       - 海外用户为主的网站
+       - 需要展示 Spotify 专属内容
+     ============================================ -->

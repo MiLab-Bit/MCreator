@@ -1,0 +1,126 @@
+{
+  "site": {
+    "name": "我的作品集",
+    "description": "创作者主页",
+    "url": "https://mysite.com",
+    "lang": "zh-CN",
+    "author": "创作者名称"
+  },
+  "theme": {
+    "preset": "dark",
+    "colors": {
+      "primary": "#007aff",
+      "background": "#05070a",
+      "text": "#ffffff"
+    },
+    "fonts": {
+      "strategy": "A",
+      "heading": "system-ui",
+      "body": "system-ui"
+    }
+  },
+  "seo": {
+    "title": "{{site.name}} - 创作者",
+    "description": "{{site.description}}",
+    "keywords": [
+      "创作",
+      "作品",
+      "艺术"
+    ],
+    "ogImage": "/assets/og.jpg"
+  },
+  "storage": {
+    "primary": {
+      "provider": "aliyun-oss",
+      "bucket": "your-bucket-name",
+      "region": "oss-cn-shanghai",
+      "baseUrl": "https://your-bucket.oss-cn-shanghai.aliyuncs.com"
+    },
+    "backup": {
+      "provider": "imgur",
+      "baseUrl": "https://i.imgur.com"
+    },
+    "local": {
+      "provider": "local",
+      "path": "./vendor/images/"
+    }
+  },
+  "navigation": [
+    {
+      "label": "首页",
+      "href": "/"
+    },
+    {
+      "label": "作品",
+      "href": "/works"
+    },
+    {
+      "label": "关于",
+      "href": "/about"
+    }
+  ],
+  "pages": [
+    {
+      "path": "/",
+      "template": "basic",
+      "sections": [
+        {
+          "type": "hero",
+          "title": "欢迎来到我的世界"
+        },
+        {
+          "type": "gallery",
+          "source": "content/works.json"
+        }
+      ]
+    }
+  ],
+  "components": {
+    "oss-image": {
+      "enabled": true,
+      "lazyLoad": true
+    },
+    "netease-player": {
+      "enabled": false
+    },
+    "bilibili-player": {
+      "enabled": false
+    },
+    "spotify-player": {
+      "enabled": false
+    },
+    "youtube-player": {
+      "enabled": false
+    }
+  },
+  "features": {
+    "spotlight-cursor": {
+      "enabled": false,
+      "size": 800,
+      "opacity": 0.08
+    },
+    "interactive-gallery": {
+      "enabled": false
+    },
+    "vertical-marquee": {
+      "enabled": false
+    }
+  },
+  "analytics": {
+    "google": {
+      "enabled": false,
+      "trackingId": ""
+    },
+    "plausible": {
+      "enabled": false,
+      "domain": ""
+    }
+  },
+  "deployment": {
+    "platform": "edgeone",
+    "projectId": "",
+    "domain": "mysite.com",
+    "autoDeploy": true
+  },
+  "_warning": "⚠️ 安全注意：site、storage、cdn 下的字段仅供本地开发。部署时请通过环境变量或 .env 文件注入敏感信息（bucket 名称、AK/SK、域名），切勿直接提交到代码仓库。"
+}

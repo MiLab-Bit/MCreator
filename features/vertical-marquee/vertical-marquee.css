@@ -1,0 +1,222 @@
+/* ============================================
+   纵向滚动文字流 - 配套 CSS
+   ============================================ */
+
+/* 容器基础样式 */
+.marquee-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* 内容基础样式 */
+.marquee-content {
+  will-change: transform;
+  padding: 60px 0; /* 为渐变遮罩留出空间 */
+}
+
+/* ============================================
+   渐变遮罩变体
+   ============================================ */
+
+/* 无遮罩 */
+.marquee-no-mask {
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+}
+
+/* 小遮罩（30px） */
+.marquee-mask-sm {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 30px,
+    black calc(100% - 30px),
+    transparent 100%
+  ) !important;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 30px,
+    black calc(100% - 30px),
+    transparent 100%
+  ) !important;
+}
+
+/* 中遮罩（60px，默认） */
+.marquee-mask-md {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 60px,
+    black calc(100% - 60px),
+    transparent 100%
+  ) !important;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 60px,
+    black calc(100% - 60px),
+    transparent 100%
+  ) !important;
+}
+
+/* 大遮罩（100px） */
+.marquee-mask-lg {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 100px,
+    black calc(100% - 100px),
+    transparent 100%
+  ) !important;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 100px,
+    black calc(100% - 100px),
+    transparent 100%
+  ) !important;
+}
+
+/* ============================================
+   进度条样式
+   ============================================ */
+
+.marquee-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: var(--color-primary, #007aff);
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+/* 进度条变体 */
+.marquee-progress-thin {
+  height: 1px;
+}
+
+.marquee-progress-thick {
+  height: 4px;
+}
+
+.marquee-progress-rounded {
+  height: 4px;
+  border-radius: 2px;
+}
+
+/* ============================================
+   内容样式（歌词示例）
+   ============================================ */
+
+.marquee-lyrics {
+  text-align: center;
+  font-size: 18px;
+  line-height: 2;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.marquee-lyrics .line {
+  padding: 8px 0;
+  transition: all 0.3s ease;
+}
+
+.marquee-lyrics .line.active {
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+/* ============================================
+   内容样式（公告示例）
+   ============================================ */
+
+.marquee-announcements {
+  padding: 0 20px;
+}
+
+.marquee-announcements .item {
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.marquee-announcements .item:last-child {
+  border-bottom: none;
+}
+
+.marquee-announcements .title {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.marquee-announcements .desc {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* ============================================
+   控制按钮（可选）
+   ============================================ */
+
+.marquee-controls {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.marquee-controls button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.marquee-controls button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ============================================
+   性能优化
+   ============================================ */
+
+/* 减少动画（用户偏好） */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-content {
+    will-change: auto;
+  }
+}
+
+/* ============================================
+   使用示例
+   ============================================
+   
+   HTML:
+   <div class="marquee-container marquee-mask-lg">
+     <div class="marquee-content marquee-lyrics">
+       <div class="line">第一行歌词</div>
+       <div class="line">第二行歌词</div>
+       ...
+     </div>
+   </div>
+   
+   JS:
+   initVerticalMarquee({
+     speed: 50,
+     pauseOnHover: true,
+     showProgress: true
+   });
+   
+   ============================================ */

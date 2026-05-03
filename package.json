@@ -1,0 +1,30 @@
+{
+  "name": "mcreator",
+  "version": "1.0.0",
+  "description": "MCreator - AIGC 创作者零构建网站工具集",
+  "private": true,
+  "workspaces": [
+    "cli"
+  ],
+  "scripts": {
+    "cli": "node cli/bin/mcreator.js",
+    "build:css": "npx tailwindcss --input styles/input.css --output styles/tailwind-built.css --content './**/*.html' --minify",
+    "test": "node tests/run-tests.js",
+    "validate": "node cli/bin/mcreator.js validate"
+  },
+  "keywords": [
+    "aigc",
+    "creator",
+    "website",
+    "zero-build",
+    "static-site"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}

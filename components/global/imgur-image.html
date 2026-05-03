@@ -1,0 +1,62 @@
+<!-- ============================================
+     Imgur 图片组件（海外专用备份）
+     ⚠️ 国内访问不稳定，仅作为 OSS 失败时的备份
+     ============================================ -->
+
+<!-- 标准版本 -->
+<img 
+  src="https://i.imgur.com/xxx.jpg"
+  alt="Artwork"
+  loading="lazy"
+  decoding="async"
+  class="artwork-image"
+>
+
+<!-- 动态 alt 文本版本（SEO 友好） -->
+<img 
+  src="https://i.imgur.com/xxx.jpg"
+  alt=""
+  data-alt="作品名称：信号社会 | 作者：XXX | 创作时间：2024"
+  loading="lazy"
+  decoding="async"
+  class="artwork-image"
+>
+
+<!-- 带回退版本（Imgur 作为主源时的兜底） -->
+<img 
+  src="https://i.imgur.com/xxx.jpg"
+  data-fallback-1="../vendor/images/backup.jpg"
+  alt="Artwork"
+  loading="lazy"
+  decoding="async"
+  class="artwork-image"
+>
+
+<!-- 直接链接版本（用于背景图等） -->
+<!-- 
+  Imgur 直接链接格式：
+  https://i.imgur.com/xxx.jpg （原图）
+  https://i.imgur.com/xxxl.jpg （大图 1024px）
+  https://i.imgur.com/xxxm.jpg （中图 640px）
+  https://i.imgur.com/xxxs.jpg （小图 320px）
+  https://i.imgur.com/xxxt.jpg （缩略图 160px）
+-->
+
+<!-- ============================================
+     使用场景
+     ============================================
+     1. 海外用户为主的网站 → 可作为主图源
+     2. 国内网站 → 仅作为 OSS 失败时的备份
+        配合 data-fallback-1 使用
+     
+     上传方法：
+       1. 访问 https://imgur.com
+       2. 拖拽图片上传
+       3. 获取图片 ID（链接中的 xxx 部分）
+       4. 拼接链接：https://i.imgur.com/xxx.jpg
+     
+     注意事项：
+       - 匿名上传有速率限制
+       - 建议注册账号管理图片
+       - 国内访问可能不稳定
+     ============================================ -->

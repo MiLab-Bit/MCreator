@@ -1,0 +1,92 @@
+<!-- ============================================
+     OSS 图片组件（国内推荐，主存储方案）
+     支持：阿里云OSS、腾讯云COS、七牛云
+     
+     ⚠️ 重要性能提示：
+     - 首屏图片（hero、LCP 图片）不要使用 loading="lazy"
+     - 首屏图片可添加 fetchpriority="high" 加速加载
+     - 非首屏图片使用 loading="lazy" 延迟加载
+     ============================================ -->
+
+<!-- ✅ 首屏图片（影响 LCP，不使用 lazy loading） -->
+<img
+  src="https://your-bucket.oss-cn-shanghai.aliyuncs.com/hero/image-001.webp"
+  alt="首屏主图"
+  width="1600"
+  height="900"
+  fetchpriority="high"
+  decoding="async"
+  class="hero-image"
+>
+
+<!-- ✅ 非首屏图片（使用懒加载优化性能） -->
+<img
+  src="https://your-bucket.oss-cn-shanghai.aliyuncs.com/works/image-001.webp"
+  alt="作品名称"
+  width="1600"
+  height="900"
+  loading="lazy"
+  decoding="async"
+  class="artwork-image"
+>
+
+<!-- 多级回退版本（推荐） -->
+<img
+  src="https://your-bucket.oss-cn-shanghai.aliyuncs.com/works/image-001.webp"
+  data-fallback-1="https://i.imgur.com/xxx.webp"
+  data-fallback-2="../vendor/images/image-001.jpg"
+  alt="作品名称"
+  width="1600"
+  height="900"
+  loading="lazy"
+  decoding="async"
+  class="artwork-image"
+>
+
+<!-- 响应式版本（picture 元素） -->
+<picture>
+  <source 
+    srcset="https://your-bucket.oss-cn-shanghai.aliyuncs.com/works/image-001.webp 1600w,
+            https://your-bucket.oss-cn-shanghai.aliyuncs.com/works/image-001-small.webp 800w"
+    sizes="(max-width: 768px) 100vw, 50vw"
+    type="image/webp"
+  >
+  <source 
+    srcset="https://your-bucket.oss-cn-shanghai.aliyuncs.com/works/image-001.jpg 1600w,
+            https://your-bucket.oss-cn-shanghai.aliyuncs.com/works/image-001-small.jpg 800w"
+    sizes="(max-width: 768px) 100vw, 50vw"
+    type="image/jpeg"
+  >
+  <img 
+    src="https://your-bucket.oss-cn-shanghai.aliyuncs.com/works/image-001.jpg"
+    alt="作品名称"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    class="artwork-image"
+  >
+</picture>
+
+<!-- 动态 alt 文本版本（SEO 友好） -->
+<img 
+  src="https://your-bucket.oss-cn-shanghai.aliyuncs.com/works/image-001.webp"
+  alt=""
+  data-alt="作品名称：信号社会 | 作者：XXX | 创作时间：2024"
+  loading="lazy"
+  decoding="async"
+  class="artwork-image"
+>
+
+<!-- 占位符 + 懒加载版本（优化首屏） -->
+<img
+  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'%3E%3Crect fill='%23f4f2ed' width='16' height='9'/%3E%3C/svg%3E"
+  data-src="https://your-bucket.oss-cn-shanghai.aliyuncs.com/works/image-001.webp"
+  data-fallback-1="https://i.imgur.com/xxx.webp"
+  data-fallback-2="../vendor/images/image-001.jpg"
+  alt="作品名称"
+  width="1600"
+  height="900"
+  decoding="async"
+  class="artwork-image"
+>

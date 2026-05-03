@@ -1,0 +1,220 @@
+<!-- ============================================
+     YouTube 播放器组件（海外专用）
+     ⚠️ 国内访问不稳定，需科学上网
+     ============================================ -->
+
+<!-- 预连接优化（减少 DNS + TCP 握手延迟） -->
+<link rel="preconnect" href="https://www.youtube.com">
+<link rel="dns-prefetch" href="https://www.youtube.com">
+<link rel="preconnect" href="https://img.youtube.com">
+<link rel="preconnect" href="https://i.ytimg.com">
+
+<!-- 标准播放器（16:9 响应式容器） -->
+<div class="youtube-container">
+  <!--
+  安全说明：iframe sandbox 属性已配置为 allow-scripts allow-same-origin allow-popups。
+  allow-same-origin 允许 iframe 访问父页面同源上下文，但 YouTube iframe 受其自身 CSP 约束，
+  实际风险可控。如需更严格隔离，可移除 allow-same-origin（需测试播放功能）。
+-->
+<iframe 
+    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    loading="lazy"
+    sandbox="allow-scripts allow-same-origin allow-popups"
+    class="youtube-player"
+  ></iframe>
+</div>
+
+<!-- 带参数播放器 -->
+<div class="youtube-container">
+  <iframe 
+    src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    loading="lazy"
+    sandbox="allow-scripts allow-same-origin allow-popups"
+    class="youtube-player"
+  ></iframe>
+</div>
+
+<!-- 固定尺寸播放器 -->
+<iframe 
+  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+  title="YouTube video player"
+  frameborder="0"
+  width="560"
+  height="315"
+  style="border: none; border-radius: 12px;"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+  loading="lazy"
+  sandbox="allow-scripts allow-same-origin allow-popups"
+></iframe>
+
+<!-- 隐私增强模式（使用 youtube-nocookie.com） -->
+<div class="youtube-container">
+  <iframe 
+    src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    loading="lazy"
+    sandbox="allow-scripts allow-same-origin allow-popups"
+    class="youtube-player"
+  ></iframe>
+</div>
+
+<!-- 带封面占位播放器（优化首屏） -->
+<div class="youtube-container with-cover">
+  <!-- 封面图（点击后加载播放器） -->
+  <div class="youtube-cover" onclick="loadYouTubePlayer(this)">
+    <img 
+      src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"
+      alt="视频封面"
+      loading="eager"
+      fetchpriority="high"
+      class="cover-image"
+    >
+    <div class="play-button">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="64" height="64">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </div>
+  </div>
+  <!-- 播放器容器（初始隐藏） -->
+  <iframe 
+    data-src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    sandbox="allow-scripts allow-same-origin allow-popups"
+    class="youtube-player hidden"
+  ></iframe>
+</div>
+
+<!-- ============================================
+     配套 CSS
+     ============================================ -->
+<style>
+.youtube-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #000;
+}
+
+.youtube-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* 带封面版本 */
+.youtube-container.with-cover {
+  background: transparent;
+}
+
+.youtube-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.youtube-cover .cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.youtube-cover .play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  opacity: 0.9;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.youtube-cover:hover .play-button {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.youtube-player.hidden {
+  display: none;
+}
+</style>
+
+<!-- ============================================
+     配套 JS（点击封面加载播放器）
+     ============================================ -->
+<script>
+function loadYouTubePlayer(coverEl) {
+  const container = coverEl.parentElement;
+  const iframe = container.querySelector('iframe[data-src]');
+  
+  if (iframe && iframe.dataset.src) {
+    iframe.src = iframe.dataset.src;
+    iframe.classList.remove('hidden');
+    coverEl.style.display = 'none';
+  }
+}
+</script>
+
+<!-- ============================================
+     参数说明
+     ============================================
+     URL 格式：
+       https://www.youtube.com/embed/{VIDEO_ID}
+       
+     常用参数（URL 后加 ? 或 &）：
+       autoplay=1      自动播放
+       start=30        从第 30 秒开始
+       end=120         到第 120 秒结束
+       rel=0           不显示相关视频
+       modestbranding=1 减少品牌元素
+       controls=0      隐藏控制条
+       fs=0            禁用全屏按钮
+       iv_load_policy=3 隐藏注释
+       loop=1          循环播放（需配合 playlist）
+       playlist=VIDEO_ID 循环播放时的播放列表
+     
+     获取 VIDEO_ID 方法：
+       从 YouTube 链接中提取
+       如：https://www.youtube.com/watch?v=dQw4w9WgXcQ
+       VIDEO_ID 为：dQw4w9WgXcQ
+     
+     封面图获取：
+       https://img.youtube.com/vi/{VIDEO_ID}/maxresdefault.jpg  最大分辨率
+       https://img.youtube.com/vi/{VIDEO_ID}/hqdefault.jpg      高清
+       https://img.youtube.com/vi/{VIDEO_ID}/mqdefault.jpg      中等
+       https://img.youtube.com/vi/{VIDEO_ID}/default.jpg        默认
+     ============================================ -->
+
+<!-- ============================================
+     国内替代方案
+     ============================================
+     国内网站推荐使用 B站视频播放器：
+       components/cn/bilibili-player.html
+     
+     YouTube 仅用于：
+       - 海外用户为主的网站
+       - 需要展示 YouTube 专属内容
+     ============================================ -->

@@ -1,0 +1,53 @@
+{
+  "name": "mcreator-dependencies",
+  "description": "MCreator 依赖版本锁定文件",
+  "version": "1.1.0",
+  "updated": "2026-05-03",
+  "dependencies": {
+    "tailwindcss": {
+      "version": "3.4.1",
+      "cdn": "https://cdn.tailwindcss.com",
+      "local": "vendor/tailwind-3.4.1.js",
+      "note": "生产环境推荐构建版本，CDN 仅用于开发"
+    },
+    "react": {
+      "version": "18.2.0",
+      "cdn": {
+        "production": "https://unpkg.com/react@18.2.0/umd/react.production.min.js",
+        "development": "https://unpkg.com/react@18.2.0/umd/react.development.js"
+      },
+      "note": "React 模板专用"
+    },
+    "react-dom": {
+      "version": "18.2.0",
+      "cdn": {
+        "production": "https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js",
+        "development": "https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"
+      }
+    },
+    "babel-standalone": {
+      "version": "7.23.0",
+      "cdn": "https://unpkg.com/@babel/standalone@7.23.0/babel.min.js",
+      "warning": "⚠️ 仅用于开发预览，生产环境请使用 Vite 或其他构建工具"
+    },
+    "fonts": {
+      "noto-serif-sc": {
+        "url": "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;700&display=swap",
+        "note": "中文衬线字体，方案 B/C 使用"
+      }
+    }
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0",
+    "serve": "^14.2.0"
+  },
+  "notes": [
+    "所有 CDN 链接已锁定精确版本号",
+    "生产环境推荐下载到 vendor/ 目录",
+    "Babel Standalone 不推荐用于生产环境"
+  ],
+  "_meta": {
+    "lastChecked": "2026-05-03T05:41:15.237Z",
+    "status": "consistent"
+  }
+}

@@ -1,0 +1,246 @@
+<!-- ============================================
+     微信公众号文章组件（国内专用）
+     以卡片形式展示，点击跳转到原文
+     ============================================ -->
+
+<!-- 标准卡片样式 -->
+<a 
+  href="https://mp.weixin.qq.com/s/文章永久链接"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="wechat-article-card"
+>
+  <div class="article-cover">
+    <img 
+      src="https://your-bucket.oss-cn-shanghai.aliyuncs.com/articles/cover.jpg"
+      alt="文章封面"
+      loading="lazy"
+      decoding="async"
+      class="cover-image"
+    >
+    <div class="article-badge">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.98-2.1 5.39z"/>
+      </svg>
+      <span>微信公众号</span>
+    </div>
+  </div>
+  <div class="article-info">
+    <h3 class="article-title">文章标题</h3>
+    <p class="article-desc">文章摘要内容，建议控制在两行以内...</p>
+    <div class="article-meta">
+      <span class="author">公众号名称</span>
+      <span class="read-more">点击阅读全文 →</span>
+    </div>
+  </div>
+</a>
+
+<!-- 简约卡片样式（无封面） -->
+<a 
+  href="https://mp.weixin.qq.com/s/文章永久链接"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="wechat-article-card-simple"
+>
+  <div class="article-icon">
+    <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+    </svg>
+  </div>
+  <div class="article-content">
+    <h3 class="article-title">文章标题</h3>
+    <p class="article-desc">文章摘要...</p>
+    <span class="article-source">公众号名称</span>
+  </div>
+</a>
+
+<!-- 列表项样式（适合多篇文章） -->
+<a 
+  href="https://mp.weixin.qq.com/s/文章永久链接"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="wechat-article-item"
+>
+  <span class="article-title">文章标题</span>
+  <span class="article-date">2024-01-01</span>
+  <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" class="arrow">
+    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+  </svg>
+</a>
+
+<!-- ============================================
+     配套 CSS
+     ============================================ -->
+<style>
+/* 标准卡片 */
+.wechat-article-card {
+  display: block;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.wechat-article-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.wechat-article-card .article-cover {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.wechat-article-card .cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.wechat-article-card:hover .cover-image {
+  transform: scale(1.05);
+}
+
+.wechat-article-card .article-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  border-radius: 6px;
+  color: white;
+  font-size: 12px;
+}
+
+.wechat-article-card .article-info {
+  padding: 20px;
+}
+
+.wechat-article-card .article-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.wechat-article-card .article-desc {
+  font-size: 14px;
+  opacity: 0.7;
+  margin-bottom: 16px;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.wechat-article-card .article-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.wechat-article-card .read-more {
+  color: var(--color-primary, #007aff);
+}
+
+/* 简约卡片 */
+.wechat-article-card-simple {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.3s ease;
+}
+
+.wechat-article-card-simple:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.wechat-article-card-simple .article-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(7, 193, 96, 0.1);
+  border-radius: 8px;
+  color: #07C160;
+}
+
+.wechat-article-card-simple .article-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.wechat-article-card-simple .article-desc {
+  font-size: 13px;
+  opacity: 0.7;
+  margin-bottom: 8px;
+}
+
+.wechat-article-card-simple .article-source {
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+/* 列表项 */
+.wechat-article-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.3s ease;
+}
+
+.wechat-article-item:hover {
+  opacity: 0.8;
+}
+
+.wechat-article-item .article-title {
+  flex: 1;
+  font-size: 14px;
+}
+
+.wechat-article-item .article-date {
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+.wechat-article-item .arrow {
+  opacity: 0.3;
+}
+</style>
+
+<!-- ============================================
+     使用说明
+     ============================================
+     1. 替换 href 中的文章永久链接
+     2. 替换封面图片 src
+     3. 填写标题、摘要、公众号名称
+     
+     获取永久链接方法：
+       1. 打开公众号文章
+       2. 点击右上角「...」
+       3. 复制链接
+       4. 链接格式：https://mp.weixin.qq.com/s/xxxxxx
+     ============================================ -->

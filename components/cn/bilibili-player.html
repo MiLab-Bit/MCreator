@@ -1,0 +1,169 @@
+<!-- ============================================
+     B站视频播放器组件（国内推荐）
+     支持 BV 号、AV 号、多 P 视频
+     ============================================ -->
+
+<!-- 标准播放器（16:9 响应式容器） -->
+<div class="bilibili-container">
+  <iframe 
+    src="https://player.bilibili.com/player.html
+      ?bvid=BV1xx411c7mD
+      &page=1
+      &high_quality=1
+      &danmaku=0
+      &autoplay=0
+    "
+    title="B站视频：视频标题名称"
+    loading="lazy"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    sandbox="allow-scripts allow-same-origin allow-popups"
+    class="bilibili-player"
+  ></iframe>
+</div>
+
+<!-- 迷你播放器（固定尺寸） -->
+<iframe 
+  src="https://player.bilibili.com/player.html?bvid=BV1xx411c7mD&page=1&high_quality=1&danmaku=0"
+  title="B站视频：视频标题名称"
+  width="400"
+  height="225"
+  loading="lazy"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  sandbox="allow-scripts allow-same-origin allow-popups"
+  class="bilibili-player-mini"
+></iframe>
+
+<!-- 带封面占位播放器（优化首屏） -->
+<div class="bilibili-container with-cover">
+  <!-- 封面图（点击后加载播放器） -->
+  <div class="bilibili-cover" onclick="loadBilibiliPlayer(this)">
+    <img 
+      src="https://your-bucket.oss-cn-shanghai.aliyuncs.com/covers/bilibili-cover.jpg"
+      alt="视频封面"
+      loading="lazy"
+      class="cover-image"
+    >
+    <div class="play-button">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </div>
+  </div>
+  <!-- 播放器容器（初始隐藏） -->
+  <iframe 
+    data-src="https://player.bilibili.com/player.html?bvid=BV1xx411c7mD&page=1&high_quality=1&danmaku=0"
+    title="B站视频：视频标题名称"
+    loading="lazy"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    sandbox="allow-scripts allow-same-origin allow-popups"
+    class="bilibili-player hidden"
+  ></iframe>
+</div>
+
+<!-- ============================================
+     配套 CSS
+     ============================================ -->
+<style>
+.bilibili-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #000;
+}
+
+.bilibili-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* 带封面版本 */
+.bilibili-container.with-cover {
+  background: transparent;
+}
+
+.bilibili-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.bilibili-cover .cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bilibili-cover .play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  opacity: 0.9;
+  transition: opacity 0.3s;
+}
+
+.bilibili-cover:hover .play-button {
+  opacity: 1;
+}
+
+.bilibili-player.hidden {
+  display: none;
+}
+
+/* 迷你播放器 */
+.bilibili-player-mini {
+  border-radius: 8px;
+}
+</style>
+
+<!-- ============================================
+     配套 JS（点击封面加载播放器）
+     ============================================ -->
+<script>
+function loadBilibiliPlayer(coverEl) {
+  const container = coverEl.parentElement;
+  const iframe = container.querySelector('iframe[data-src]');
+  
+  if (iframe && iframe.dataset.src) {
+    iframe.src = iframe.dataset.src;
+    iframe.classList.remove('hidden');
+    coverEl.style.display = 'none';
+  }
+}
+</script>
+
+<!-- ============================================
+     参数说明
+     ============================================
+     bvid: BV 号（推荐，如 BV1xx411c7mD）
+     aid: AV 号（旧版，不推荐）
+     
+     page: 分 P 编号（默认 1）
+     
+     high_quality: 
+       0 = 默认画质
+       1 = 最高画质
+     
+     danmaku: 
+       0 = 关闭弹幕
+       1 = 开启弹幕
+     
+     autoplay: 
+       0 = 不自动播放
+       1 = 自动播放
+     
+     获取 BV 号方法：
+       从 B站视频链接中提取
+       如 https://www.bilibili.com/video/BV1xx411c7mD
+     ============================================ -->

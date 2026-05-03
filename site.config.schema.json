@@ -1,0 +1,229 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MCreator Site Configuration",
+  "description": "AIGC创作者网站配置文件",
+  "type": "object",
+  "required": ["site", "storage", "deployment"],
+  "properties": {
+    "site": {
+      "type": "object",
+      "description": "站点基本信息",
+      "required": ["name", "url"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "站点名称",
+          "default": "我的作品集"
+        },
+        "description": {
+          "type": "string",
+          "description": "站点描述",
+          "default": "创作者主页"
+        },
+        "url": {
+          "type": "string",
+          "description": "站点URL",
+          "format": "uri"
+        },
+        "lang": {
+          "type": "string",
+          "description": "站点语言",
+          "default": "zh-CN"
+        },
+        "author": {
+          "type": "string",
+          "description": "作者名称"
+        }
+      }
+    },
+    "theme": {
+      "type": "object",
+      "description": "主题配置",
+      "properties": {
+        "preset": {
+          "type": "string",
+          "enum": ["dark", "light", "auto"],
+          "default": "dark",
+          "description": "主题预设"
+        },
+        "colors": {
+          "type": "object",
+          "properties": {
+            "primary": { "type": "string", "default": "#007aff" },
+            "background": { "type": "string", "default": "#05070a" },
+            "text": { "type": "string", "default": "#ffffff" },
+            "accent": { "type": "string" }
+          }
+        },
+        "fonts": {
+          "type": "object",
+          "description": "字体方案：A=系统字体，B=子集化，C=按地区加载",
+          "properties": {
+            "strategy": { "type": "string", "enum": ["A", "B", "C"], "default": "A" },
+            "heading": { "type": "string", "default": "system-ui" },
+            "body": { "type": "string", "default": "system-ui" }
+          }
+        }
+      }
+    },
+    "seo": {
+      "type": "object",
+      "description": "SEO 配置",
+      "properties": {
+        "title": { "type": "string", "default": "{{site.name}} - 创作者" },
+        "description": { "type": "string" },
+        "keywords": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": ["创作", "作品"]
+        },
+        "ogImage": { "type": "string" }
+      }
+    },
+    "storage": {
+      "type": "object",
+      "description": "存储配置（多级备份策略）",
+      "required": ["primary"],
+      "properties": {
+        "primary": {
+          "type": "object",
+          "description": "主存储（国内推荐阿里云OSS）",
+          "required": ["provider"],
+          "properties": {
+            "provider": { "type": "string", "enum": ["aliyun-oss", "tencent-cos", "qiniu"] },
+            "bucket": { "type": "string" },
+            "region": { "type": "string" },
+            "baseUrl": { "type": "string" }
+          }
+        },
+        "backup": {
+          "type": "object",
+          "description": "备份存储（海外访问备用）",
+          "properties": {
+            "provider": { "type": "string", "enum": ["imgur", "aws-s3"], "default": "imgur" },
+            "baseUrl": { "type": "string", "default": "https://i.imgur.com" }
+          }
+        },
+        "local": {
+          "type": "object",
+          "description": "本地备份（离线兜底）",
+          "properties": {
+            "provider": { "type": "string", "default": "local" },
+            "path": { "type": "string", "default": "./vendor/images/" }
+          }
+        }
+      }
+    },
+    "navigation": {
+      "type": "array",
+      "description": "导航菜单",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": { "type": "string" },
+          "href": { "type": "string" },
+          "icon": { "type": "string" }
+        }
+      },
+      "default": [
+        { "label": "首页", "href": "/" },
+        { "label": "作品", "href": "/works" },
+        { "label": "关于", "href": "/about" }
+      ]
+    },
+    "pages": {
+      "type": "array",
+      "description": "页面配置",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": { "type": "string" },
+          "template": { "type": "string", "default": "basic" },
+          "sections": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": { "type": "string" },
+                "title": { "type": "string" },
+                "source": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "type": "object",
+      "description": "组件启用配置",
+      "properties": {
+        "oss-image": { "type": "object", "properties": { "enabled": { "type": "boolean", "default": true } } },
+        "netease-player": { "type": "object", "properties": { "enabled": { "type": "boolean", "default": false } } },
+        "bilibili-player": { "type": "object", "properties": { "enabled": { "type": "boolean", "default": false } } },
+        "spotify-player": { "type": "object", "properties": { "enabled": { "type": "boolean", "default": false } } },
+        "youtube-player": { "type": "object", "properties": { "enabled": { "type": "boolean", "default": false } } }
+      }
+    },
+    "features": {
+      "type": "object",
+      "description": "特色功能配置",
+      "properties": {
+        "spotlight-cursor": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean", "default": false },
+            "size": { "type": "number", "default": 800 },
+            "opacity": { "type": "number", "default": 0.08 }
+          }
+        },
+        "interactive-gallery": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean", "default": false }
+          }
+        },
+        "vertical-marquee": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean", "default": false }
+          }
+        }
+      }
+    },
+    "analytics": {
+      "type": "object",
+      "description": "数据分析配置",
+      "properties": {
+        "google": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean", "default": false },
+            "trackingId": { "type": "string" }
+          }
+        },
+        "plausible": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean", "default": false },
+            "domain": { "type": "string" }
+          }
+        }
+      }
+    },
+    "deployment": {
+      "type": "object",
+      "description": "部署配置",
+      "required": ["platform"],
+      "properties": {
+        "platform": {
+          "type": "string",
+          "enum": ["edgeone", "vercel", "netlify"],
+          "description": "部署平台：edgeone（国内优先）、vercel（海外优先）"
+        },
+        "projectId": { "type": "string" },
+        "domain": { "type": "string" },
+        "autoDeploy": { "type": "boolean", "default": true }
+      }
+    }
+  }
+}

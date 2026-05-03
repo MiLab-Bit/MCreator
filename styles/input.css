@@ -1,0 +1,76 @@
+/* ============================================
+   Tailwind CSS 输入文件
+   用于一次性构建生成纯 CSS
+   ============================================ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* 主色调 */
+    --color-primary: #007aff;
+    /* 深色背景 */
+    --color-dark: #05070a;
+    /* 文字颜色 */
+    --color-text: #ffffff;
+    /* 强调色 */
+    --color-accent: #ff6b6b;
+  }
+
+  /* 基础样式（使用 CSS 变量，非 Tailwind 类） */
+  * {
+    border-color: var(--color-primary, #e5e7eb);
+  }
+
+  body {
+    background-color: var(--color-dark, #05070a);
+    color: var(--color-text, #ffffff);
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  /* 玻璃拟态卡片 - 浅色（深色版本仅支持 CSS） */
+  .glass-card-light {
+    @apply relative overflow-hidden rounded-xl;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  /* 注意：glass-card 深色版请使用 standard-animations.css 中的定义
+     因为 CSS 自定义属性在 @apply 中不支持复杂回退 */
+
+  /* 按钮基础样式 */
+  .btn {
+    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300;
+  }
+
+  .btn-primary {
+    @apply btn bg-[var(--color-primary)] text-white hover:opacity-90;
+  }
+
+  .btn-secondary {
+    @apply btn bg-white/10 text-white hover:bg-white/20;
+  }
+}
+
+@layer utilities {
+  /* 文字渐变 */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+  }
+
+  /* 隐藏滚动条 */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}

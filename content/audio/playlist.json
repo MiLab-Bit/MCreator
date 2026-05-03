@@ -1,0 +1,23 @@
+[
+  {
+    "id": "playlist-001",
+    "title": "创作灵感 playlist",
+    "description": "适合创作时听的背景音乐",
+    "tracks": [
+      {
+        "id": "track-001",
+        "title": "信号社会",
+        "artist": "创作者",
+        "neteaseId": "1234567",
+        "cover": "https://your-bucket.oss-cn-shanghai.aliyuncs.com/covers/playlist-001.jpg"
+      },
+      {
+        "id": "track-002",
+        "title": "数字梦境",
+        "artist": "创作者",
+        "neteaseId": "7654321",
+        "cover": "https://your-bucket.oss-cn-shanghai.aliyuncs.com/covers/playlist-001.jpg"
+      }
+    ]
+  }
+]

@@ -1,0 +1,94 @@
+<!-- ============================================
+     网易云音乐播放器组件（国内推荐）
+     支持单曲、歌单、专辑
+     ============================================ -->
+
+<!-- 单曲播放器（标准版） -->
+<iframe 
+  style="border: none;"
+  frameborder="0" 
+  marginwidth="0" 
+  marginheight="0" 
+  width="330" 
+  height="86" 
+  src="//music.163.com/outchain/player?type=2&id=歌曲ID&auto=0&height=66"
+  allow="autoplay"
+  loading="lazy"
+  sandbox="allow-scripts allow-same-origin allow-popups"
+  title="网易云音乐播放器"
+  class="netease-player"
+></iframe>
+
+<!-- 歌单播放器 -->
+<iframe 
+  style="border: none;"
+  frameborder="0" 
+  marginwidth="0" 
+  marginheight="0" 
+  width="330" 
+  height="450" 
+  src="//music.163.com/outchain/player?type=0&id=歌单ID&auto=0&height=430"
+  allow="autoplay"
+  loading="lazy"
+  sandbox="allow-scripts allow-same-origin allow-popups"
+  title="网易云音乐歌单"
+  class="netease-player"
+></iframe>
+
+<!-- 专辑播放器 -->
+<iframe 
+  style="border: none;"
+  frameborder="0" 
+  marginwidth="0" 
+  marginheight="0" 
+  width="330" 
+  height="450" 
+  src="//music.163.com/outchain/player?type=1&id=专辑ID&auto=0&height=430"
+  allow="autoplay"
+  loading="lazy"
+  sandbox="allow-scripts allow-same-origin allow-popups"
+  title="网易云音乐专辑"
+  class="netease-player"
+></iframe>
+
+<!-- 迷你播放器（适合侧边栏） -->
+<iframe 
+  style="border: none; border-radius: 8px;"
+  frameborder="0" 
+  marginwidth="0" 
+  marginheight="0" 
+  width="100%" 
+  height="52" 
+  src="//music.163.com/outchain/player?type=2&id=歌曲ID&auto=0&height=32"
+  allow="autoplay"
+  loading="lazy"
+  sandbox="allow-scripts allow-same-origin allow-popups"
+  title="网易云音乐迷你播放器"
+  class="netease-player-mini"
+></iframe>
+
+<!-- ============================================
+     参数说明
+     ============================================
+     type: 
+       0 = 歌单
+       1 = 专辑
+       2 = 单曲
+       3 = 用户歌单
+     
+     id: 网易云音乐对应 ID
+     
+     auto: 
+       0 = 不自动播放
+       1 = 自动播放
+     
+     height: 
+       播放器高度（不含边框）
+       单曲推荐 66
+       歌单/专辑推荐 430
+     
+     获取 ID 方法：
+       1. 打开网易云音乐网页版
+       2. 分享 → 复制链接
+       3. 链接中 id= 后面的数字即为 ID
+     ============================================ -->

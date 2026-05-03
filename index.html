@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MCreator - AIGC创作者零构建网站工作流标准，让创作者专注内容而非技术">
+  <meta name="keywords" content="AIGC,创作者,零构建,网站模板,个人网站,作品集">
+  <meta name="author" content="MCreator">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="MCreator - AIGC创作者网站工作流标准">
+  <meta property="og:description" content="零构建 · 国内优先 · 个人站/产品站通用">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://github.com/yourusername/MCreator">
+  
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <title>MCreator - AIGC创作者网站工作流标准</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: '#007aff',
+              dark: '#05070a',
+              card: '#0d1117',
+              border: '#21262d',
+              muted: '#8b949e'
+            }
+          },
+          fontFamily: {
+            sans: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['SF Mono', 'Monaco', 'Consolas', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    /* 自定义动画 */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    @keyframes glow {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+    
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .animate-float { animation: float 6s ease-in-out infinite; }
+    .animate-glow { animation: glow 3s ease-in-out infinite; }
+    .animate-gradient {
+      background-size: 200% 200%;
+      animation: gradient 8s ease infinite;
+    }
+    
+    /* 渐变背景 */
+    .bg-gradient-radial {
+      background: radial-gradient(ellipse at top, rgba(0, 122, 255, 0.15) 0%, transparent 50%);
+    }
+    
+    /* 代码块样式 */
+    .code-block {
+      background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+      border: 1px solid #21262d;
+    }
+    
+    /* 卡片悬停效果 */
+    .feature-card {
+      transition: all 0.3s ease;
+      background: linear-gradient(180deg, rgba(13, 17, 23, 0.8) 0%, rgba(13, 17, 23, 0.4) 100%);
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0, 122, 255, 0.5);
+      box-shadow: 0 8px 32px rgba(0, 122, 255, 0.15);
+    }
+    
+    /* 滚动条样式 */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0d1117; }
+    ::-webkit-scrollbar-thumb { background: #21262d; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #30363d; }
+  </style>
+</head>
+
+<body class="bg-brand-dark text-white font-sans antialiased">
+  <!-- 背景装饰 -->
+  <div class="fixed inset-0 bg-gradient-radial pointer-events-none"></div>
+  <div class="fixed inset-0 opacity-30 pointer-events-none" style="background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 50px 50px;"></div>
+  
+  <!-- 导航栏 -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-brand-dark/80 backdrop-blur-xl border-b border-brand-border">
+    <div class="max-w-6xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-primary to-blue-400 flex items-center justify-center font-bold text-sm">
+            M
+          </div>
+          <span class="font-semibold text-lg">MCreator</span>
+        </div>
+        
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#features" class="text-brand-muted hover:text-white transition-colors">特性</a>
+          <a href="#architecture" class="text-brand-muted hover:text-white transition-colors">架构</a>
+          <a href="#quickstart" class="text-brand-muted hover:text-white transition-colors">快速开始</a>
+          <a href="https://github.com/MiLab-Bit/MCreator" target="_blank" class="text-brand-muted hover:text-white transition-colors">GitHub</a>
+        </div>
+        
+        <a href="#quickstart" class="px-4 py-2 bg-brand-primary hover:bg-blue-600 rounded-lg text-sm font-medium transition-colors">
+          开始使用
+        </a>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Hero 区域 -->
+  <header class="relative min-h-screen flex items-center justify-center px-6 pt-20">
+    <div class="max-w-4xl mx-auto text-center">
+      <!-- 标签 -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-card border border-brand-border mb-8">
+        <span class="w-2 h-2 rounded-full bg-green-500 animate-glow"></span>
+        <span class="text-sm text-brand-muted">v1.1 稳定版已发布</span>
+      </div>
+      
+      <!-- 主标题 -->
+      <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+        <span class="bg-gradient-to-r from-white via-blue-200 to-brand-primary bg-clip-text text-transparent animate-gradient">
+          AIGC 创作者
+        </span>
+        <br>
+        <span class="text-white">网站工作流标准</span>
+      </h1>
+      
+      <!-- 副标题 -->
+      <p class="text-xl md:text-2xl text-brand-muted mb-8 max-w-2xl mx-auto">
+        零构建 · 国内优先 · 个人站/产品站通用
+        <br>
+        <span class="text-white/60">让创作者专注内容，而非技术</span>
+      </p>
+      
+      <!-- CTA 按钮 -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+        <a href="#quickstart" class="px-8 py-4 bg-brand-primary hover:bg-blue-600 rounded-xl text-lg font-semibold transition-all hover:scale-105 shadow-lg shadow-brand-primary/25">
+          快速开始
+        </a>
+        <a href="https://github.com/MiLab-Bit/MCreator" target="_blank" class="px-8 py-4 bg-brand-card hover:bg-brand-card/80 border border-brand-border rounded-xl text-lg font-medium transition-all hover:scale-105">
+          <span class="flex items-center gap-2">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub 仓库
+          </span>
+        </a>
+      </div>
+      
+      <!-- 代码预览 -->
+      <div class="code-block rounded-xl p-6 text-left max-w-2xl mx-auto animate-float">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-3 h-3 rounded-full bg-red-500"></div>
+          <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+          <div class="w-3 h-3 rounded-full bg-green-500"></div>
+          <span class="ml-4 text-xs text-brand-muted">terminal</span>
+        </div>
+        <pre class="text-sm md:text-base font-mono"><code><span class="text-brand-muted"># 克隆项目</span>
+<span class="text-green-400">$</span> git clone https://github.com/yourusername/MCreator.git
+
+<span class="text-brand-muted"># 编辑配置</span>
+<span class="text-green-400">$</span>编辑 site.config.json
+
+<span class="text-brand-muted"># 部署上线</span>
+<span class="text-green-400">$</span>拖拽到 Vercel / EdgeOne</code></pre>
+      </div>
+    </div>
+    
+    <!-- 向下滚动提示 -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-brand-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+      </svg>
+    </div>
+  </header>
+  
+  <!-- 特性区域 -->
+  <section id="features" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">核心特性</h2>
+        <p class="text-brand-muted text-lg">为创作者精心设计的每一个细节</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- 特性卡片 1 -->
+        <div class="feature-card rounded-2xl border border-brand-border p-6">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500/20 to-green-500/5 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">零构建架构</h3>
+          <p class="text-brand-muted">无需 npm install、无需打包工具、无需 node_modules。双击 HTML 即可运行，五年后依然有效。</p>
+        </div>
+        
+        <!-- 特性卡片 2 -->
+        <div class="feature-card rounded-2xl border border-brand-border p-6">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-500/5 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">国内优先</h3>
+          <p class="text-brand-muted">OSS 图片、网易云、B站视频等国内可访问组件作为默认选项，海外组件作为可选增强。</p>
+        </div>
+        
+        <!-- 特性卡片 3 -->
+        <div class="feature-card rounded-2xl border border-brand-border p-6">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-500/5 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">组件化设计</h3>
+          <p class="text-brand-muted">图片、音频、视频、文章等媒体组件标准化，复制粘贴即可使用，开箱即用。</p>
+        </div>
+        
+        <!-- 特性卡片 4 -->
+        <div class="feature-card rounded-2xl border border-brand-border p-6">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500/20 to-orange-500/5 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">设计系统</h3>
+          <p class="text-brand-muted">Tailwind CSS + 标准动效库 + 字体系统，统一的视觉语言，专业的呈现效果。</p>
+        </div>
+        
+        <!-- 特性卡片 5 -->
+        <div class="feature-card rounded-2xl border border-brand-border p-6">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500/20 to-pink-500/5 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">安全可靠</h3>
+          <p class="text-brand-muted">CSP 安全策略、HSTS、X-Frame-Options 等安全头配置完善，防御 XSS 攻击。</p>
+        </div>
+        
+        <!-- 特性卡片 6 -->
+        <div class="feature-card rounded-2xl border border-brand-border p-6">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-cyan-500/5 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">本地化依赖</h3>
+          <p class="text-brand-muted">核心依赖下载到 vendor/，CDN 仅作备用。离线环境也能正常工作。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- 架构区域 -->
+  <section id="architecture" class="py-24 px-6 bg-brand-card/50">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">分层架构</h2>
+        <p class="text-brand-muted text-lg">清晰的职责划分，按需引入</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- 左侧：架构图 -->
+        <div class="space-y-4">
+          <div class="rounded-xl border border-brand-border p-6 bg-gradient-to-b from-purple-500/10 to-transparent">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-400 text-xs font-medium">第四层</span>
+              <span class="font-semibold">自动化层</span>
+            </div>
+            <p class="text-brand-muted text-sm">CLI 工具、CDN 映射、缓存管理</p>
+          </div>
+          
+          <div class="rounded-xl border border-brand-border p-6 bg-gradient-to-b from-blue-500/10 to-transparent">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs font-medium">第三层</span>
+              <span class="font-semibold">内容层</span>
+            </div>
+            <p class="text-brand-muted text-sm">图片、音频、视频、文章配置</p>
+          </div>
+          
+          <div class="rounded-xl border border-brand-border p-6 bg-gradient-to-b from-green-500/10 to-transparent">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-xs font-medium">第二层</span>
+              <span class="font-semibold">特色功能层</span>
+            </div>
+            <p class="text-brand-muted text-sm">聚光灯效果、交互画廊、纵向滚动</p>
+          </div>
+          
+          <div class="rounded-xl border border-brand-border p-6 bg-gradient-to-b from-orange-500/10 to-transparent">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="px-3 py-1 rounded-full bg-orange-500/20 text-orange-400 text-xs font-medium">第一层</span>
+              <span class="font-semibold">基础层</span>
+            </div>
+            <p class="text-brand-muted text-sm">零构建模板、设计系统、媒体组件、工具函数</p>
+          </div>
+        </div>
+        
+        <!-- 右侧：目录结构 -->
+        <div class="code-block rounded-xl p-6 font-mono text-sm">
+          <div class="text-brand-muted mb-4"># 项目结构</div>
+          <pre class="text-green-400"><code>MCreator/
+├── templates/          # HTML 模板
+│   ├── basic.html
+│   └── react.html
+├── components/         # 媒体组件
+│   ├── cn/            # 国内可用
+│   └── global/        # 海外专用
+├── styles/            # 设计系统
+│   ├── tailwind-built.css
+│   └── standard-animations.css
+├── features/          # 特色功能
+│   ├── spotlight-cursor/
+│   ├── interactive-gallery/
+│   └── vertical-marquee/
+├── utils/             # 工具函数
+│   ├── helpers.js
+│   └── font-loader.js
+├── content/           # 内容管理
+│   ├── images/
+│   └── audio/
+├── site.config.json   # 核心配置
+└── README.md</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- 快速开始区域 -->
+  <section id="quickstart" class="py-24 px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">快速开始</h2>
+        <p class="text-brand-muted text-lg">三步上线，专注创作</p>
+      </div>
+      
+      <div class="space-y-8">
+        <!-- 步骤 1 -->
+        <div class="flex gap-6">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-primary flex items-center justify-center font-bold text-lg">
+            1
+          </div>
+          <div class="flex-1">
+            <h3 class="text-xl font-semibold mb-2">克隆项目</h3>
+            <p class="text-brand-muted mb-4">从 GitHub 克隆项目到本地</p>
+            <div class="code-block rounded-lg p-4 font-mono text-sm">
+              <code class="text-green-400">git clone git@github.com:MiLab-Bit/MCreator.git</code>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 步骤 2 -->
+        <div class="flex gap-6">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-primary flex items-center justify-center font-bold text-lg">
+            2
+          </div>
+          <div class="flex-1">
+            <h3 class="text-xl font-semibold mb-2">编辑配置</h3>
+            <p class="text-brand-muted mb-4">修改 <code class="px-2 py-1 bg-brand-card rounded text-brand-primary">site.config.json</code> 填写站点信息</p>
+            <div class="code-block rounded-lg p-4 font-mono text-sm overflow-x-auto">
+              <pre><code>{
+  "site": {
+    "name": "我的作品集",
+    "url": "https://mysite.com"
+  },
+  "storage": {
+    "primary": { "provider": "aliyun-oss" }
+  }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 步骤 3 -->
+        <div class="flex gap-6">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-primary flex items-center justify-center font-bold text-lg">
+            3
+          </div>
+          <div class="flex-1">
+            <h3 class="text-xl font-semibold mb-2">部署上线</h3>
+            <p class="text-brand-muted mb-4">拖拽到 Vercel / EdgeOne，或推送到 GitHub Pages</p>
+            <div class="flex flex-wrap gap-4">
+              <span class="px-4 py-2 bg-brand-card border border-brand-border rounded-lg text-sm">Vercel</span>
+              <span class="px-4 py-2 bg-brand-card border border-brand-border rounded-lg text-sm">EdgeOne</span>
+              <span class="px-4 py-2 bg-brand-card border border-brand-border rounded-lg text-sm">GitHub Pages</span>
+              <span class="px-4 py-2 bg-brand-card border border-brand-border rounded-lg text-sm">Cloudflare</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- 统计数据 -->
+  <section class="py-16 px-6 bg-gradient-to-r from-brand-primary/10 via-transparent to-brand-primary/10">
+    <div class="max-w-4xl mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+          <div class="text-4xl font-bold text-brand-primary mb-2">0</div>
+          <div class="text-brand-muted">构建步骤</div>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-brand-primary mb-2">6+</div>
+          <div class="text-brand-muted">媒体组件</div>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-brand-primary mb-2">3</div>
+          <div class="text-brand-muted">特色功能</div>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-brand-primary mb-2">100%</div>
+          <div class="text-brand-muted">国内可用</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- 页脚 -->
+  <footer class="py-12 px-6 border-t border-brand-border">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-primary to-blue-400 flex items-center justify-center font-bold text-sm">
+            M
+          </div>
+          <span class="font-semibold">MCreator</span>
+          <span class="text-brand-muted text-sm">v1.1</span>
+        </div>
+        
+        <div class="flex items-center gap-6">
+          <a href="https://github.com/MiLab-Bit/MCreator" target="_blank" class="text-brand-muted hover:text-white transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+        </div>
+        
+        <div class="text-brand-muted text-sm">
+          Made with ❤️ for Creators
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- 工具函数 -->
+  <script>
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+    
+    // 导航栏滚动效果
+    const nav = document.querySelector('nav');
+    let lastScroll = 0;
+    
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll > 100) {
+        nav.style.background = 'rgba(5, 7, 10, 0.95)';
+      } else {
+        nav.style.background = 'rgba(5, 7, 10, 0.8)';
+      }
+      
+      lastScroll = currentScroll;
+    }, { passive: true });
+    
+    // 元素入场动画
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+    
+    // 为特性卡片添加入场动画
+    document.querySelectorAll('.feature-card').forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`;
+      observer.observe(card);
+    });
+  </script>
+</body>
+</html>

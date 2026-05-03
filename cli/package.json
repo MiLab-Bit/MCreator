@@ -1,0 +1,29 @@
+{
+  "name": "mcreator-cli",
+  "version": "1.0.0",
+  "description": "MCreator - AIGC 创作者网站工作流工具",
+  "main": "bin/mcreator.js",
+  "bin": {
+    "mcreator": "./bin/mcreator.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "keywords": [
+    "aigc",
+    "creator",
+    "website",
+    "generator",
+    "static-site"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0",
+    "inquirer": "^8.2.5"
+  }
+}
