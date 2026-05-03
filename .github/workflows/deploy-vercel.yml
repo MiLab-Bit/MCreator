@@ -20,11 +20,11 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Build CSS (if needed)
-        run: |
-          if [ -f "styles/input.css" ]; then
-            npx tailwindcss --input styles/input.css --output styles/tailwind-built.css --content './**/*.html' --minify
-          fi
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build:css
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
