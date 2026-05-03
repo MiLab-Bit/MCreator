@@ -25,29 +25,20 @@ jobs:
       - name: Build CSS
         run: npm run build:css
 
-      - name: Configure AWS CLI for COS
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.COS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.COS_SECRET_ACCESS_KEY }}
-          aws-region: ap-shanghai
+      - name: Install coscmd
+        run: pip install coscmd
 
-      - name: Sync static assets to COS
+      - name: Configure coscmd
         run: |
-          aws s3 sync . s3://${{ secrets.EDGEONE_BUCKET }} \
-            --delete \
-            --exclude ".git/*" \
-            --exclude ".github/*" \
-            --exclude "node_modules/*" \
-            --exclude ".env*" \
-            --cache-control "public, max-age=31536000, immutable"
+          coscmd config -a ${{ secrets.COS_ACCESS_KEY_ID }} \
+                        -s ${{ secrets.COS_SECRET_ACCESS_KEY }} \
+                        -b ${{ secrets.EDGEONE_BUCKET }}
 
-      - name: Sync HTML files with short cache
+      - name: Upload static assets to COS
         run: |
-          aws s3 sync . s3://${{ secrets.EDGEONE_BUCKET }} \
-            --exclude "*" \
-            --include "*.html" \
-            --cache-control "public, max-age=3600"
+          # Upload all files except excluded ones
+          coscmd upload -r --delete ./ / \
+            --ignore "*.git/*,.github/*,node_modules/*,.env*,*.md,*.sh"
 
       - name: Purge EdgeOne Cache
         run: |
