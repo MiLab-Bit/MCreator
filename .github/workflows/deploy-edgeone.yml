@@ -36,7 +36,9 @@ jobs:
                         -r ${{ secrets.COS_REGION }}
 
       - name: Upload to COS
-        run: coscmd upload -rs --delete . / --ignore "*.git*,node_modules/*,.github/*,.env*"
+        run: |
+          # Upload all files from current directory to COS root
+          coscmd upload -r --delete ./ /
 
       - name: Purge EdgeOne Cache
         run: |
