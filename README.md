@@ -1,11 +1,27 @@
-# MCreator - AIGC创作者网站工作流标准项目
+# 🎨 MCreator - AIGC 创作者网站工作流标准项目
+
+<p>
+
+![GitHub stars](https://img.shields.io/github/stars/MiLab-Bit/MCreator)
+![GitHub language count](https://img.shields.io/github/languages/count/MiLab-Bit/MCreator)
+![License](https://img.shields.io/badge/License-MIT-blue)
+![Tailwind](https://img.shields.io/badge/Tailwind-CSS-38B2AC?logo=tailwindcss&logoColor=white)
+![Vercel](https://img.shields.io/badge/Deploy-Vercel-000000?logo=vercel&logoColor=white)
+![EdgeOne](https://img.shields.io/badge/Deploy-EdgeOne-FF5C00?logo=tencentcloud&logoColor=white)
+
+</p>
 
 > 基于「零构建 · 国内优先 · 个人站/产品站通用」原则
-> **版本：v1.1（2026.05.03）**
+
+<p>
+
+**🚀 预览地址**：[https://mcreator.vercel.app](https://mcreator.vercel.app)
+
+</p>
 
 ---
 
-## 架构概览
+## 🏗️ 架构概览
 
 ```
 MCreator/
@@ -67,9 +83,9 @@ MCreator/
 
 ---
 
-## 分层架构说明
+## 📦 四层架构
 
-### 第一层：基础层（所有网站通用）
+### 第一层 · 基础层（所有网站通用）
 
 | 模块 | 路径 | 说明 |
 |------|------|------|
@@ -78,53 +94,44 @@ MCreator/
 | 媒体组件 | `components/` | OSS/网易云/B站等标准组件 |
 | 工具函数 | `utils/` | 懒加载、防抖、图片回退等 |
 
-### 第二层：特色功能层（按需引入）
+### 第二层 · 特色功能层（按需引入）
 
 | 功能 | 路径 | 适用场景 |
 |------|------|---------|
-| 鼠标聚光灯 | `features/spotlight-cursor/` | 深色主题、沉浸式网站 |
-| 交互画廊 | `features/interactive-gallery/` | 作品展示、分类浏览 |
-| 纵向滚动 | `features/vertical-marquee/` | 歌词展示、文字流 |
+| 🖱️ 鼠标聚光灯 | `features/spotlight-cursor/` | 深色主题、沉浸式网站 |
+| 🖼️ 交互画廊 | `features/interactive-gallery/` | 作品展示、分类浏览 |
+| 📜 纵向滚动 | `features/vertical-marquee/` | 歌词展示、文字流 |
 
-### 第三层：内容层（配置驱动）
+### 第三层 · 内容层（配置驱动）
 
 | 内容类型 | 路径 | 说明 |
 |---------|------|------|
-| 图片资源 | `content/images/` | 待上传到 OSS/Imgur |
-| 音频资源 | `content/audio/` | 音乐文件或配置 |
-| 视频配置 | `content/videos.json` | B站/YouTube 视频列表 |
-| 文章配置 | `content/articles.json` | 微信公众号文章列表 |
+| 🖼️ 图片资源 | `content/images/` | 待上传到 OSS/Imgur |
+| 🎵 音频资源 | `content/audio/` | 音乐文件或配置 |
+| 📹 视频配置 | `content/videos.json` | B站/YouTube 视频列表 |
+| 📝 文章配置 | `content/articles.json` | 微信公众号文章列表 |
 
-### 第四层：自动化层（CLI 工具）
+### 第四层 · 自动化层（CLI 工具）
 
 | 功能 | 配置文件 | 说明 |
 |------|---------|------|
-| 站点配置 | `site.config.json` | 驱动整个站点生成 |
-| CDN 映射 | `.site/cdn-mapping.json` | 记录上传结果 |
-| 缓存状态 | `.site/cache/` | CLI 内部缓存 |
+| ⚙️ 站点配置 | `site.config.json` | 驱动整个站点生成 |
+| 🌐 CDN 映射 | `.site/cdn-mapping.json` | 记录上传结果 |
+| 💾 缓存状态 | `.site/cache/` | CLI 内部缓存 |
 
 ---
 
-## 快速开始
+## 🚀 快速开始
 
 ### 0. 构建 Tailwind CSS（首次使用必须）
 
-⚠️ **首次使用必须执行此步骤！**
-
 ```bash
-# 方案 A：安装 Tailwind CSS 并构建（推荐）
+# 安装 Tailwind CSS 并构建
 npm install -D tailwindcss
 npm run build:css
-
-# 方案 B：使用 CDN 版本（仅开发预览）
-# 在 HTML 中将 ../styles/tailwind-built.css 替换为：
-# <script src="https://cdn.tailwindcss.com"></script>
 ```
 
-**为什么需要构建？**
-- `styles/tailwind-built.css` 是项目所有模板依赖的核心样式文件
-- 生产环境必须使用构建版本以获得最佳性能
-- CDN 版本适合快速开发，但不推荐用于生产
+> ⚠️ `styles/tailwind-built.css` 是所有模板依赖的核心样式文件，生产环境必须使用构建版本
 
 ### 1. 初始化配置
 
@@ -148,93 +155,74 @@ npm run build:css
 
 ### 2. 添加内容
 
-- 图片 → `content/images/works/`
-- 音乐 → `content/audio/playlist.json`
-- 视频 → `content/videos.json`
+```
+📷 图片 → content/images/works/
+🎵 音乐 → content/audio/playlist.json
+📹 视频 → content/videos.json
+```
 
 ### 3. 选择模板
 
-- 简单站点 → `templates/basic.html`
-- 复杂交互 → `templates/react.html`
+| 模板 | 路径 | 适用场景 |
+|------|------|---------|
+| 简单站点 | `templates/basic.html` | 个人主页、作品集 |
+| 复杂交互 | `templates/react.html` | 需 React 的高级场景 |
 
 ### 4. 部署
 
-参考 `docs/deployment-guide.md` 选择部署方案：
-- 国内用户 → EdgeOne
-- 海外用户 → Vercel
+参考 `docs/deployment-guide.md`：
+
+| 平台 | 适用场景 | 仓库 |
+|------|---------|------|
+| **EdgeOne** | 国内优先 🎯 | `.github/workflows/deploy-edgeone.yml` |
+| **Vercel** | 海外访问 | `.github/workflows/deploy-vercel.yml` |
 
 ---
 
-## 核心设计原则
+## 🎯 核心设计原则
 
 | 原则 | 说明 |
 |------|------|
-| **零构建信仰** | 禁止 npm install、打包工具、node_modules |
-| **CDN优先** | 所有依赖通过 CDN 引入，写死精确版本号 |
-| **国内优先** | 国内用户访问优先，海外作为可选增强 |
-| **长期主义** | 今天写的代码，5年后双击 HTML 还能运行 |
-| **本地化依赖** | 核心依赖下载到 vendor/，CDN 仅作备用 |
+| ⚡ **零构建信仰** | 禁止 npm install、打包工具、node_modules |
+| 🌐 **CDN优先** | 所有依赖通过 CDN 引入，写死精确版本号 |
+| 🇨🇳 **国内优先** | 国内用户访问优先，海外作为可选增强 |
+| ♾️ **长期主义** | 今天写的代码，5年后双击 HTML 还能运行 |
+| 💾 **本地化依赖** | 核心依赖下载到 vendor/，CDN 仅作备用 |
 
 ---
 
-## 目录职责说明
+## 📂 目录职责
 
-### vendor/ - 本地化依赖
-
-存放必须本地化的资源：
-- `vendor/images/` - 核心图片的本地备份（离线兜底）
-- `vendor/fonts/` - 字体子集化文件（.woff2）
-
-**原则**：CDN 可能失效，本地文件永远可用。
-
-### components/ - 媒体组件
-
-**cn/** - 国内可访问（默认推荐）：
-- OSS 图片（阿里云/腾讯云）
-- 网易云音乐
-- B站视频
-- 微信公众号
-
-**global/** - 海外专用（国内不保证可用）：
-- Imgur 图片
-- Spotify 音乐
-- YouTube 视频
-
-### features/ - 特色功能
-
-每个功能独立目录，包含：
-- `*.js` - 功能逻辑
-- `*.css` - 功能样式
-- `README.md` - 使用说明
-
-按需引入，不使用不加载。
-
-### content/ - 内容管理
-
-所有待处理的原始内容：
-- 图片上传前放在 `content/images/`
-- CLI 上传后自动更新 CDN 映射
-- 配置文件驱动内容展示
-
-### .site/ - CLI 内部状态
-
-CLI 工具的内部数据，用户无需关心：
-- 上传记录
-- CDN 映射
-- 缓存状态
+| 目录 | 说明 |
+|------|------|
+| `vendor/` | 核心图片/字体本地备份，CDN 失效时的离线兜底 |
+| `components/` | 媒体组件（国内/海外分开，国内默认） |
+| `features/` | 特色功能，每个功能独立目录，按需引入 |
+| `content/` | 原始内容，CLI 上传后自动更新 CDN 映射 |
+| `.site/` | CLI 内部数据，用户无需关心 |
 
 ---
 
-## 扩展原则
+## 📄 扩展原则
 
-1. **基础设施只增不改** - 已标准化的模块不要修改
-2. **特色功能持续积累** - 新功能抽象后加入 features/
-3. **工具函数持续沉淀** - 通用逻辑加入 utils/helpers.js
-4. **动效设计统一风格** - 新动效保持相同节奏和质感
+- 🏗️ **基础设施只增不改** - 已标准化的模块不要修改
+- ✨ **特色功能持续积累** - 新功能抽象后加入 features/
+- 🔧 **工具函数持续沉淀** - 通用逻辑加入 utils/helpers.js
+- 🎨 **动效设计统一风格** - 新动效保持相同节奏和质感
 
 ---
 
-## 版本历史
+## 📋 版本历史
 
-- **v1.1（2026.05.03）** - 新增国内优先原则、字体系统、OSS 图片组件
-- **v1.0（2026.05.03）** - 初始正式发布版本
+| 版本 | 日期 | 更新内容 |
+|------|------|---------|
+| **v1.1** | 2026.05.03 | 新增国内优先原则、字体系统、OSS 图片组件 |
+| **v1.0** | 2026.05.03 | 初始正式发布版本 |
+
+---
+
+<p align="center">
+
+Made with ❤️ by [MiLab-Bit](https://github.com/MiLab-Bit)
+
+</p>
