@@ -27,13 +27,19 @@ jobs:
 
       - name: Deploy to Tencent COS
         run: |
-          # Parse bucket name from full COS URL like: mcreator-xxx.cos.ap-shanghai.myqcloud.com
-          # Extract just the bucket name part (before .cos.)
-          BUCKET_URL="${{ secrets.EDGEONE_BUCKET }}"
-          BUCKET_NAME="${BUCKET_URL%%.*}"
+          # Extract bucket name from EDGEONE_BUCKET secret
+          # Secret may be: "mcreator-1251234567" OR "https://mcreator-1251234567.cos.ap-shanghai.myqcloud.com"
+          RAW="${{ secrets.EDGEONE_BUCKET }}"
           
+          # Remove protocol prefix if present
+          BUCKET_NO_PROTO="${RAW#https://}"
+          BUCKET_NO_PROTO="${BUCKET_NO_PROTO#http://}"
+          
+          # Extract just the bucket name part (before .cos.)
+          BUCKET_NAME="${BUCKET_NO_PROTO%%.cos.*}"
+          
+          echo "Raw: $RAW"
           echo "Bucket name: $BUCKET_NAME"
-          echo "Uploading to: https://cos.ap-shanghai.myqcloud.com"
           
           # Sync static assets (long cache)
           aws s3 sync . "s3://${BUCKET_NAME}/" \
