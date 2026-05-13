@@ -1,0 +1,74 @@
+# .cosignore - 用于 coscmd 上传时排除文件
+# 与 .gitignore 类似，用于排除不需要上传到 COS 的文件
+
+# Git 仓库
+.git/
+
+# Node.js 依赖
+node_modules/
+
+# 开发和构建工具
+cli/
+scripts/
+tests/
+utils/
+
+# 配置文件（开发环境）
+.env
+.env.local
+.env.*.local
+package.json
+package-lock.json
+tailwind.config.js
+lighthouserc.json
+vercel.json
+
+# 文档和元数据
+README.md
+docs/
+.github/
+.gitignore
+
+# IDE 配置
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 系统文件
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# 日志文件
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 临时文件
+tmp/
+temp/
+*.tmp
+*.temp
+
+# 测试覆盖率
+coverage/
+.nyc_output/
+
+# 可选：如果需要保留源码映射或其他构建产物，请调整此处
+# dist/  # 当前项目不使用 dist 目录
+
+# 敏感文件
+.oss-config.json
+*.pem
+*.key
+secrets.json
+
+# 保留以下文件和目录（不要排除）：
+# index.html
+# components/**/*.html
+# styles/tailwind-built.css
+# site.config.json
+# vendor/（如果有静态资源）
