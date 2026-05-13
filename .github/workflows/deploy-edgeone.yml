@@ -25,41 +25,49 @@ jobs:
       - name: Build CSS
         run: npm run build:css
 
-      - name: Install coscmd
-        run: pip install coscmd
+      - name: Configure AWS CLI for COS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.COS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.COS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.COS_REGION }}
 
-      - name: Configure coscmd
+      - name: Sync static assets to COS
         run: |
-          coscmd config -a ${{ secrets.COS_ACCESS_KEY_ID }} \
-                        -s ${{ secrets.COS_SECRET_ACCESS_KEY }} \
-                        -b ${{ secrets.EDGEONE_BUCKET }} \
-                        -r ${{ secrets.COS_REGION }}
+          # 同步所有文件（长期缓存）
+          aws s3 sync . s3://${{ secrets.EDGEONE_BUCKET }} \
+            --delete \
+            --exclude ".git/*" \
+            --exclude ".github/*" \
+            --exclude "node_modules/*" \
+            --exclude "cli/*" \
+            --exclude "scripts/*" \
+            --exclude "tests/*" \
+            --exclude "utils/*" \
+            --exclude "docs/*" \
+            --exclude ".vscode/*" \
+            --exclude ".idea/*" \
+            --exclude ".env*" \
+            --exclude "*.md" \
+            --exclude "*.sh" \
+            --exclude "*.log" \
+            --exclude "*.swp" \
+            --exclude "package*.json" \
+            --exclude "tailwind.config.js" \
+            --exclude "lighthouserc.json" \
+            --exclude "vercel.json" \
+            --exclude ".cosignore" \
+            --exclude "site.config.schema.json" \
+            --exclude ".DS_Store" \
+            --exclude "Thumbs.db" \
+            --cache-control "public, max-age=31536000, immutable"
 
-      # 构建 Tailwind CSS（零构建模式只需要 CSS）
-      - name: Build Tailwind CSS
+      - name: Sync HTML files with short cache
         run: |
-          npm ci
-          npm run build:css
-
-      # 只上传必要的网站文件，排除 node_modules 和其他开发文件
-      - name: Upload to COS (site files only)
-        run: |
-          # 上传根目录 HTML 文件
-          coscmd upload -r ./index.html /index.html
-          # 上传 templates/ 目录
-          coscmd upload -r ./templates/ /templates/
-          # 上传 styles/ 目录
-          coscmd upload -r ./styles/ /styles/
-          # 上传 components/ 目录
-          coscmd upload -r ./components/ /components/
-          # 上传 features/ 目录
-          coscmd upload -r ./features/ /features/
-          # 上传 content/ 目录
-          coscmd upload -r ./content/ /content/
-          # 上传 vendor/ 目录
-          coscmd upload -r ./vendor/ /vendor/
-          # 上传配置文件
-          coscmd upload -r ./site.config.json /site.config.json
+          aws s3 sync . s3://${{ secrets.EDGEONE_BUCKET }} \
+            --exclude "*" \
+            --include "*.html" \
+            --cache-control "public, max-age=3600"
 
       - name: Purge EdgeOne Cache
         run: |
