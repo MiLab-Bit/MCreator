@@ -15,7 +15,7 @@
 
 <p>
 
-**🚀 预览地址**：[https://mcreator.vercel.app](https://mcreator.vercel.app)
+**🚀 本地预览**：克隆仓库后用浏览器打开 `index.html`，或运行 `python -m http.server 8000` 后访问 `http://localhost:8000`（原 Vercel 预览地址已失效，待重新部署）
 
 </p>
 
